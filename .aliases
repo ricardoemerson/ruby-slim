@@ -1,0 +1,284 @@
+
+# Visualização de logs.
+alias tlrp='tail -f log/production.log'
+alias tlrd='tail -f log/development.log'
+alias tls='tail -f /var/log/syslog'
+alias tlna='tail -f /var/log/nginx/access.log'
+alias tlne='tail -f /var/log/nginx/error.log'
+
+
+# Shell de Comandos
+alias ll='ls -laGh'
+alias cls='clear'
+alias sshkg='ssh-keygen -t rsa'
+alias un='uname -a'
+
+# GIT
+# Inicialização do repositório.
+alias {gi,git_init}='git init'
+alias {gib,git_init_bare}='git init --bare'
+
+# Gravação de arquivos.
+alias {ga,git_add}='git add .'
+
+alias gc='git_commit'
+
+# Verificação de estados.
+alias {gb,git_branch}='git branch'
+alias {gba,git_branch_all}='git branch --all'
+alias {gs,git_status}='git status'
+alias {gsr,git_status_resumed}='git status -s'
+alias {gl,git_log}='git log'
+alias {glpo,git_log_pretty_oneline}='git log --pretty=oneline'
+alias {glp,git_log_p}='git log -p'
+
+# Definição para branchs.
+alias {gch,git_checkout}='git checkout'
+alias {gcb,git_checkout_new_branch}='git checkout -b'
+alias {grb,git_remove_branch}='git branch -d'
+alias {gm,git_merge}='git merge'
+
+# Consulta de repositórios remotos.
+alias {grmt,git_remote}='git remote -v'
+alias {grso,git_remote_show_origin}='git remote show origin'
+alias {grsssh,git_remote_show_ssh}='git remote show ssh'
+alias {grsl,git_remote_show_local}='git remote show local'
+alias {grshd,git_remote_show_hd}='git remote show hd'
+alias {grsid,git_remote_show_id}='git remote show id'
+
+
+# Remoção de repositórios remotos.
+alias {grro,git_remote_remove_origin}='git remote rm origin'
+alias {grrssh,git_remote_remove_ssh}='git remote rm ssh'
+alias {grrl,git_remote_remove_local}='git remote rm local'
+alias {grrhd,git_remote_remove_hd}='git remote rm hd'
+alias {grrid,git_remote_remove_id}='git remote rm id'
+
+# Envio de arquivos para o repositório remoto.
+alias {gpoa,git_push_origin_all}='git push -u origin --all'
+alias {gpoa,git_push_origin_all}='git push -u origin --all'
+alias {gpssha,git_push_ssh_all}='git push ssh --all'
+alias {gpla,git_push_local_all}='git push local --all'
+alias {gphda,git_push_hd_all}='git push hd --all'
+alias {gpida,git_push_id_all}='git push id --all'
+
+alias {gpsom,git_push_origin_master}='git push -u origin master'
+alias {gpssshm,git_push_ssh_master}='git push ssh master'
+alias {gpslm,git_push_local_master}='git push local master'
+alias {gpshdm,git_push_hd_master}='git push hd master'
+alias {gpsidm,git_push_id_master}='git push id master'
+
+alias {gpso,git_push_origin}='git push -u origin $(git describe --contains --all HEAD)'
+alias {gpsssh,git_push_ssh}='git push ssh $(git describe --contains --all HEAD)'
+alias {gpsl,git_push_local}='git push local $(git describe --contains --all HEAD)'
+alias {gpshd,git_push_hd}='git push hd $(git describe --contains --all HEAD)'
+alias {gpsid,git_push_id}='git push id $(git describe --contains --all HEAD)'
+alias {gp,git_push}='git push'
+
+# Revebimento de arquivos do repositório remoto.
+alias {gf,git_fetch}='git fetch'
+alias {gfo,git_fetch_origin}='git fetch origin'
+alias {gfssh,git_fetch_ssh}='git fetch ssh'
+alias {gfl,git_fetch_local}='git fetch local'
+alias {gfhd,git_fetch_hd}='git fetch hd'
+alias {gfid,git_fetch_id}='git fetch id'
+
+alias {gplo,git_pull_origin}='git pull origin $(git describe --contains --all HEAD)'
+alias {gplssh,git_pull_ssh}='git pull ssh $(git describe --contains --all HEAD)'
+alias {gpll,git_pull_local}='git pull local $(git describe --contains --all HEAD)'
+alias {gplhd,git_pull_hd}='git pull hd $(git describe --contains --all HEAD)'
+alias {gplid,git_pull_id}='git pull id $(git describe --contains --all HEAD)'
+
+# Clonar um repositórito para o caminho atual.
+alias {gclone,git_clone}='git clone'
+
+# Listar as modificações realizadas em um determinado arquivo.
+alias {gd,git_diff}='git diff'
+alias {gdro,git_diff_remote_origin}='git diff $(git describe --contains --all HEAD) origin/$(git describe --contains --all HEAD)'
+alias {gdrssh,git_diff_remote_ssh}='git diff $(git describe --contains --all HEAD) ssh/$(git describe --contains --all HEAD)'
+alias {gdrl,git_diff_remote_local}='git diff $(git describe --contains --all HEAD) local/$(git describe --contains --all HEAD)'
+alias {gdrhd,git_diff_remote_hd}='git diff $(git describe --contains --all HEAD) hd/$(git describe --contains --all HEAD)'
+alias {gdrid,git_diff_remote_id}='git diff $(git describe --contains --all HEAD) id/$(git describe --contains --all HEAD)'
+
+# Remove do repositório local um arquivo que tenha sido apagado fisicamente.
+alias {gr,git_remove}='git rm'
+
+
+# Criação de Tags leves.
+alias git_create_tag='git tag'
+
+# Listando as tags.
+alias {gt,git_tag}='git tag'
+
+# Detalhando uma tag.
+alias git_show='git show'
+
+# Heroku Commands.
+alias {hl,heroku_login}='heroku login'
+alias {hc,heroku_create}='heroku create'
+alias {gpsh,git_push_heroku_master}='git push heroku master'
+alias {ho,heroku_open}='heroku open'
+alias {hl,heroku_logs}='heroku logs'
+alias {hcfg,heroku_config}='heroku config'
+alias {hr,heroku_restart}='heroku restart'
+
+# Ruby on Rails
+alias {bi,bundle_install}='bundle install'
+alias {biwp,bundle_install_whithout_production}='bundle install --without production'
+alias {bu,bundle_update}='bundle update'
+alias {bb,bundle_binstubs}='bundle --binstubs'
+alias {bs,bundle_show}='bundle show'
+
+# RubyGems
+alias {gl,gem_list}='gem list'
+alias {gc,gem_clean}='gem clean'
+
+# Rails generate commands.
+# Twitter-Bootstrap-Rails
+alias {rgbl,rails_generate_bootstrap_layout}='rails g bootstrap:layout'
+alias {rdbl,rails_delete_bootstrap_layout}='rails d bootstrap:layout'
+alias {rgbt,rails_generate_bootstrap_themed}='rails g bootstrap:themed'
+alias {rdbt,rails_delete_bootstrap_themed}='rails d bootstrap:themed'
+
+# Simple Form
+alias {rgsf,rails_generate_simple_form}='rails g simple_form:install'
+alias {rdsf,rails_delete_simple_form}='rails d simple_form:install'
+
+alias {rgsfb,rails_generate_simple_form_bootstrap}='rails g simple_form:install --bootstrap'
+alias {rdsfb,rails_delete_simple_form_bootstrap}='rails d simple_form:install --bootstrap'
+
+# Devise
+alias {rgdi,rails_generate_devise_install}='rails g devise:install'
+alias {rddi,rails_delete_devise_install}='rails d devise:install'
+alias {rgdu,rails_generate_devise_user}='rails g devise User'
+alias {rddu,rails_delete_devise_user}='rails d devise User'
+alias {rgdv,rails_generate_devise_views}='rails g devise:views users'
+alias {rddv,rails_delete_devise_views}='rails d devise:views users'
+
+# Cancancan
+alias {rgcca,rails_generate_cancan_ability}='rails g cancan:ability'
+
+# Rolify
+alias {rgmp,rails_generate_model_profile}='rails g model profile description:string{30}:uniq detail:text enabled:boolean user:references deleted_at:datetime:index'
+alias {rdmp,rails_delete_model_profile}='rails d model profile description:string{30}:uniq detail:text enabled:boolean user:references deleted_at:datetime:index'
+alias {rgr,rails_generate_rolify}='rails g rolify Role Profile'
+alias {rdr,rails_delete_rolify}='rails d rolify Role Profile'
+
+# Simple-Captcha
+alias {rgsc,rails_generate_simple_captcha}='rails g simple_captcha'
+alias {rdsc,rails_delete_simple_captcha}='rails d simple_captcha'
+
+# Rails Config
+alias {rgrc,rails_generate_rails_conf}='rails g rails_config:install'
+alias {rdrc,rails_delete_rails_conf}='rails d rails_config:install'
+
+# Kaminari
+alias {rgkv,rails_generate_kaminari_views}='rails g kaminari:views semantic_ui -e slim'
+alias {rdkv,rails_delete_kaminari_views}='rails d kaminari:views semantic_ui -e slim'
+
+# Rspec
+alias {rgrsp,rails_generate_rspec}='rails generate rspec:install'
+alias {rdrsp,rails_delete_rspec}='rails delete rspec:install'
+
+# Audited
+alias {rgadt,rails_generate_audited}='rails generate audited:install'
+
+# Listagem de tarefas Rake
+alias {rkt,rake_tasks}='rake -T'
+alias {rt,rails_tasks}='rails -T'
+
+# Gera nova chave de encripitação para o projeto atual
+alias {rks,rake_secret}='rake secret'
+alias {rs,rails_secret}='rails secret'
+
+# Migrations
+alias {rkdbc,rake_db_create}='rake db:create'
+alias {rdbc,rails_db_create}='rails db:create'
+
+alias {rkdbm,rake_db_migrate}='rake db:migrate'
+alias {rdbm,rails_db_migrate}='rails db:migrate'
+
+alias {rkdbcm,rake_db_create_migrate}='rake db:create db:migrate'
+alias {rdbcm,rails_db_create_migrate}='rails db:create db:migrate'
+
+alias {rkdbcsl,rake_db_create_schema_load}='rake db:create db:schema:load'
+alias {rdbcsl,rails_db_create_schema_load}='rails db:create db:schema:load'
+
+alias {rkdbms,rake_db_migrate_status}='rake db:migrate:status'
+alias {rdbms,rails_db_migrate_status}='rails db:migrate:status'
+
+
+alias {rkdbr,rake_db_rollback}='rake db:rollback'
+alias {rdbr,rails_db_rollback}='rails db:rollback'
+
+alias {rkdbd,rake_db_drop}='rake db:drop'
+alias {rdbd,rails_db_drop}='rails db:drop'
+
+alias {rkdbs,rake_db_seed}='rake db:seed'
+alias {rdbs,rails_db_seed}='rails db:seed'
+
+# Tarefa para limpar e compilar stylesheets.
+alias {rkacp,rake_asset_clean_precompile}='rake assets:clean assets:precompile --trace'
+alias {racp,rails_asset_clean_precompile}='rails assets:clean assets:precompile --trace'
+
+# Tarefas rake para o ambiente de produção.
+alias {rpe,rails_production_environment}='RAILS_ENV=production'
+
+alias {rkp_rs,rake_secret_production}='RAILS_ENV=production rake secret'
+alias {rp_rs,rails_secret_production}='RAILS_ENV=production rails secret'
+
+alias {rkp_rap,rake_asset_precompile_production}='RAILS_ENV=production rake assets:precompile'
+alias {rp_rap,rails_asset_precompile_production}='RAILS_ENV=production rails assets:precompile'
+
+alias {rkp_rdbcm,rake_db_create_migrate_production}='RAILS_ENV=production rake db:create db:migrate'
+alias {rp_rdbcm,rails_db_create_migrate_production}='RAILS_ENV=production rails db:create db:migrate'
+
+alias {rkp_rdbcsl,rake_db_create_schema_load_production}='RAILS_ENV=production rake db:create db:schema:load'
+alias {rp_rdbcsl,rails_db_create_schema_load_production}='RAILS_ENV=production rails db:create db:schema:load'
+
+alias {rkp_rdbs,rake_db_seed_production}='RAILS_ENV=production rake db:seed'
+alias {rp_rdbs,rails_db_seed_production}='RAILS_ENV=production rails db:seed'
+
+alias {rkp_rdbd,rake_db_drop_production}='RAILS_ENV=production rake db:drop'
+alias {rp_rdbd,rails_db_drop_production}='RAILS_ENV=production rails db:drop'
+
+# Tarefas rake para o ambiente de testes.
+alias {rte,rails_test_environment}='RAILS_ENV=test'
+
+alias {rkt_rdbcm,rake_db_create_migrate_test}='RAILS_ENV=test rake db:create db:migrate'
+alias {rt_rdbcm,rails_db_create_migrate_test}='RAILS_ENV=test rails db:create db:migrate'
+
+alias {rkt_rdbcsl,rake_db_create_schema_load_test}='RAILS_ENV=test rake db:create db:schema:load'
+alias {rt_rdbcsl,rails_db_create_schema_load_test}='RAILS_ENV=test rails db:create db:schema:load'
+
+alias {rkt_rdbs,rake_db_seed_test}='RAILS_ENV=test rake db:seed'
+alias {rt_rdbs,rails_db_seed_test}='RAILS_ENV=test rails db:seed'
+
+alias {rkt_rdbd,rake_db_drop_test}='RAILS_ENV=test rake db:drop'
+alias {rt_rdbd,rails_db_drop_test}='RAILS_ENV=test rails db:drop'
+
+alias {rkt_rdbtp,rake_db_test_prepare}='rake db:test:prepare'
+alias {rt_rdbtp,rails_db_test_prepare}='rails db:test:prepare'
+
+# Rotas
+alias {rkr,rake_routes}='rake routes'
+alias {rr,rails_routes}='rails routes'
+
+# Controllers
+alias {rgc,rails_generate_controller}='rails g controller'
+alias {rdc,rails_delete_controller}='rails d controller'
+
+# Model
+alias {rgm,rails_generate_model}='rails g model'
+alias {rdm,rails_delete_model}='rails d model'
+
+alias rgmsd='rails_generate_model_with_deleted_at'
+alias rdmsd='rails_delete_model_with_deleted_at'
+
+# Rspec.
+alias rspinst='rails g rspec:install'
+alias brspec-rails='bundle binstubs rspec-rails'
+alias brspec-core='bundle binstubs rspec-core'
+
+# Ctags
+alias ctg='ctags -R --exclude=.git --exclude=log *'

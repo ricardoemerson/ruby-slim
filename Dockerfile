@@ -1,3 +1,4 @@
+# TAG VERSION 1.0
 FROM ruby:2.3.1-slim
 
 MAINTAINER Ricardo Emerson <ricardo_emerson@yahoo.com.br>
@@ -6,18 +7,15 @@ MAINTAINER Ricardo Emerson <ricardo_emerson@yahoo.com.br>
 RUN apt-get update && apt-get -y upgrade
 
 # Install base util libraries.
-RUN apt-get update && apt-get install -y git-core zsh vim mc make gcc automake openssl
+RUN apt-get update && apt-get install -y --no-install-recommends git-core zsh vim mc openssl && rm -rf /var/lib/apt/lists/*
 
-# Install Ruby dependencies.
-RUN apt-get update && apt-get install -y curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev ca-certificates nodejs
+# TAG VERSION 1.1
+# Install Ruby on Rails dependencies.
+RUN apt-get update && apt-get install -y --no-install-recommends nodejs zlib1g-dev build-essential libxslt1-dev libcurl4-openssl-dev libmysqlclient-dev libsqlite3-dev sqlite3 python-software-properties && rm -rf /var/lib/apt/lists/*
 
-# Install Rails app dependencies.
-RUN apt-get update && apt-get install -y imagemagick qt5-default libqt5webkit5-dev libmysqlclient-dev && rm -rf /var/lib/apt/lists/*
-
+# TAG VERSION 1.2
 # Create the dev-user.
-RUN adduser ricardo && adduser ricardo sudo
-# RUN echo "ricardo ALL=(ALL) ALL" >> /etc/sudoers
-# RUN sed -i 's/1000/0/g' /etc/passwd
+RUN adduser --disabled-password admin && adduser admin sudo
 
 # Install Oh-My-ZSH complements on root user.
 ENV SHELL=/bin/zsh
@@ -26,24 +24,24 @@ RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN chsh -s /bin/zsh
 
 # Include aliases to the zshrc.
-RUN echo "alias ll='ls -laGh'" >> ~/.zshrc
-RUN echo "alias cls='clear'" >> ~/.zshrc
+COPY .aliases /tmp
+RUN cat /tmp/.aliases >> ~/.zshrc
+RUN rm /tmp/.aliases
 
-# Copy package oh-my-zsh to the user ricardo.
-RUN cp -R ~/.oh-my-zsh /home/ricardo
-RUN cp ~/.zshrc /home/ricardo/.zshrc
+# Copy package oh-my-zsh to the user admin.
+RUN cp -R ~/.oh-my-zsh /home/admin
+RUN cp ~/.zshrc /home/admin/.zshrc
 
 # Change the onwner of files.
-RUN chown -R ricardo:ricardo /home/ricardo/.oh-my-zsh
-RUN chown -R ricardo:ricardo /home/ricardo/.zshrc
-RUN chown -R ricardo:ricardo /usr/local/bundle/
+RUN chown -R admin:admin /home/admin/.oh-my-zsh
+RUN chown -R admin:admin /home/admin/.zshrc
 
 RUN mkdir -p /project/web-app
-RUN chown -R ricardo:ricardo /project
+RUN chown -R admin:admin /project
 
-USER ricardo
+USER admin
 
-# Install Oh-My-ZSH complements on ricardo user.
+# Sets the Oh-My-ZSH as default shell.
 ENV SHELL=/bin/zsh
 
 # Specify the work directory and volume.
@@ -51,18 +49,21 @@ WORKDIR /project/web-app
 
 VOLUME /project/web-app
 
-# install Rails.
-RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-
-# Update the RubyGems.
-RUN gem update --system
-
+# TAG VERSION 1.3
+# # install Rails.
 ENV RAILS_VERSION '5.0.0.1'
 
 RUN gem install rails -v "$RAILS_VERSION"
 
+# TAG VERSION 1.4
+# Install the Pry and Awesome Print.
+RUN gem install pry
+RUN gem install pry-rails
+RUN gem install awesome_print
+
+COPY .irbrc /home/admin/.irbrc
+COPY .pryrc /home/admin/.pryrc
+
 EXPOSE 3000
 
-CMD /bin/zsh
-
-# # # ENTRYPOINT ["zsh"]
+CMD zsh
