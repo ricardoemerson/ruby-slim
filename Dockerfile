@@ -7,14 +7,22 @@ MAINTAINER Ricardo Emerson <ricardo_emerson@yahoo.com.br>
 RUN apt-get update && apt-get -y upgrade
 
 # Install base util libraries.
-RUN apt-get update && apt-get install -y --no-install-recommends git-core zsh vim mc openssl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends git-core zsh vim mc openssl
+
+# Remove temporary files.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # TAG VERSION 1.1
 # Install Ruby on Rails dependencies.
-RUN apt-get update && apt-get install -y --no-install-recommends nodejs zlib1g-dev build-essential libxslt1-dev libcurl4-openssl-dev libmysqlclient-dev libsqlite3-dev sqlite3 python-software-properties && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends nodejs zlib1g-dev build-essential libxslt1-dev libcurl4-openssl-dev sqlite3 libsqlite3-dev libmysqlclient-dev libpq-dev python-software-properties
+
+# Remove temporary files.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # TAG VERSION 1.2
-# Create the dev-user.
+ENV DEBIAN_FRONTEND noninteractive
+
+# Create the admin-user.
 RUN adduser --disabled-password admin && adduser admin sudo
 
 # Install Oh-My-ZSH complements on root user.
@@ -50,7 +58,7 @@ WORKDIR /project/web-app
 VOLUME /project/web-app
 
 # TAG VERSION 1.3
-# # install Rails.
+# install Rails.
 ENV RAILS_VERSION '5.0.0.1'
 
 RUN gem install rails -v "$RAILS_VERSION"
