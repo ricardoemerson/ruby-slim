@@ -7,7 +7,7 @@ MAINTAINER Ricardo Emerson <ricardo_emerson@yahoo.com.br>
 RUN apt-get update && apt-get -y upgrade
 
 # Install base util libraries.
-RUN apt-get update && apt-get install -y --no-install-recommends git-core zsh vim mc openssl
+RUN apt-get update && apt-get install -y --no-install-recommends git-core zsh vim mc gcc make openssl
 
 # Remove temporary files.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -22,8 +22,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # TAG VERSION 1.2
 ENV DEBIAN_FRONTEND noninteractive
 
-# Create the admin-user.
-RUN adduser --disabled-password admin && adduser admin sudo
+# Create the docker-user.
+RUN adduser --disabled-password docker && adduser docker staff
 
 # Install Oh-My-ZSH complements on root user.
 ENV SHELL=/bin/zsh
@@ -36,18 +36,18 @@ COPY .aliases /tmp
 RUN cat /tmp/.aliases >> ~/.zshrc
 RUN rm /tmp/.aliases
 
-# Copy package oh-my-zsh to the user admin.
-RUN cp -R ~/.oh-my-zsh /home/admin
-RUN cp ~/.zshrc /home/admin/.zshrc
+# Copy package oh-my-zsh to the user docker.
+RUN cp -R ~/.oh-my-zsh /home/docker
+RUN cp ~/.zshrc /home/docker/.zshrc
 
 # Change the onwner of files.
-RUN chown -R admin:admin /home/admin/.oh-my-zsh
-RUN chown -R admin:admin /home/admin/.zshrc
+RUN chown -R docker:staff /home/docker/.oh-my-zsh
+RUN chown -R docker:staff /home/docker/.zshrc
 
 RUN mkdir -p /project/web-app
-RUN chown -R admin:admin /project
+RUN chown -R docker:docker /project
 
-USER admin
+USER docker
 
 # Sets the Oh-My-ZSH as default shell.
 ENV SHELL=/bin/zsh
@@ -69,8 +69,8 @@ RUN gem install pry
 RUN gem install pry-rails
 RUN gem install awesome_print
 
-COPY .irbrc /home/admin/.irbrc
-COPY .pryrc /home/admin/.pryrc
+COPY .irbrc /home/docker/.irbrc
+COPY .pryrc /home/docker/.pryrc
 
 EXPOSE 3000
 
